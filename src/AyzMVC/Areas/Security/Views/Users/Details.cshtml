@@ -1,0 +1,51 @@
+﻿@model AyzMVC.Areas.Security.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div>
+    <header class="row content-header head-margin">
+        <div class="col-md-6">
+            <h2>User Details</h2>
+        </div>
+        <div class="col-md-6 content-action text-right">
+            <a href="@Url.Action("Index")" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                Back
+            </a>
+                
+</div>
+        </header> 
+    <dl class="dl-horizontal">
+        <div class="panel panel-default panel-margin">
+            <div class="panel-body">
+                <img src="@Url.Content("~/images/unknownbig.png")" class="img-rounded resize" />
+                <div class="text-right">
+                    <a href="@Url.Action("Edit", new { id = Model.id })" class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        Edit
+                    </a>
+                </div>
+               
+                 <p class="text"><b>
+                    @Html.DisplayFor(model => model.LastName)</b>
+               </p>
+                    @Html.DisplayFor(model => model.FirstName)
+                <br /> <br />
+                    @Html.DisplayFor(model => model.age) years old
+                <br />
+                    @Html.DisplayFor(model => model.Gender)
+            </div>
+        </div>
+    </dl>
+</div>
+<p>
+    
+</p>
+}
