@@ -19,9 +19,8 @@
                 <span class="glyphicon glyphicon-arrow-left"></span>
                 Back
             </a>
-                
-</div>
-        </header> 
+        </div>
+    </header>
     <dl class="dl-horizontal">
         <div class="panel panel-default panel-margin">
             <div class="panel-body">
@@ -32,20 +31,18 @@
                         Edit
                     </a>
                 </div>
-               
-                 <p class="text"><b>
+                <p class="text"><b>
                     @Html.DisplayFor(model => model.LastName)</b>
-               </p>
-                    @Html.DisplayFor(model => model.FirstName)
-                <br /> <br />
-                    @Html.DisplayFor(model => model.age) years old
+                </p>
+                 @Html.DisplayFor(model => model.FirstName)
                 <br />
-                    @Html.DisplayFor(model => model.Gender)
+                <br />
+                @Html.DisplayFor(model => model.age)
+                years old
+                <br />
+                @Html.DisplayFor(model => model.Gender)
             </div>
         </div>
     </dl>
 </div>
-<p>
-    
-</p>
 }

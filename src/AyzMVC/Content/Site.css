@@ -75,3 +75,7 @@ a.red {
     float:left;
     margin-right: 15px; 
 }
+th {
+    background-color: #000000;
+    color: white;
+}
