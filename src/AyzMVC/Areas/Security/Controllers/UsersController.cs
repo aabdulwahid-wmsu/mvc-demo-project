@@ -10,34 +10,7 @@ namespace AyzMVC.Areas.Security.Controllers
 {
     public class UsersController : Controller
     {
-        private IList<UserViewModel> Users
-        {
-            get
-            {
-                if(Session["data"] == null)
-                {
-                    Session["data"] = new List<UserViewModel> 
-                    {
-                        new UserViewModel {
-                             id = Guid.NewGuid(),
-                             FirstName = "John",
-                             LastName = "Wick",
-                             age = 29,
-                             Gender = "Male"
-                        },
-
-                        new UserViewModel {
-                            id = Guid.NewGuid(),
-                            FirstName = "Jane",
-                            LastName = "Smith",
-                            age = 27,
-                            Gender = "Female"
-                        }
-                    };
-                }
-                return Session["data"] as List<UserViewModel>;
-            }
-        }
+        
 
         // GET: Security/Users
         public ActionResult Index()
@@ -66,15 +39,16 @@ namespace AyzMVC.Areas.Security.Controllers
             {
                 var users = (from user in db.Users
                              select new UserViewModel
-                             {
-                                 id = user.id,
-                                 FirstName = user.FirstName,
-                                 LastName = user.LastName,
-                                 age = user.age,
-                                 Gender = user.Gender
-                             }).ToList();
+                {
+                    id = user.id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    age = user.age,
+                    Gender = user.Gender
+                }).ToList();
 
-                var u = Users.FirstOrDefault(s => s.id == Id);
+                var u = users.FirstOrDefault(user => user.id == Id);
+
                 return View(u);
             }
         }
@@ -145,16 +119,7 @@ namespace AyzMVC.Areas.Security.Controllers
             {
                 using (var db = new DatabaseContext())
                 {
-                   /* var users = db.Users.Find(Id);
-                    if(users != null)
-                    {
-                        users.FirstName = viewModel.FirstName;
-                        users.LastName = viewModel.LastName;
-                        users.age = viewModel.age;
-                        users.Gender = viewModel.Gender;
-                        db.SaveChanges(); 
-                    }
-                    */
+                  
 
                     var u = db.Users.FirstOrDefault( us => us.id == Id);
                     if (u != null)
@@ -164,6 +129,7 @@ namespace AyzMVC.Areas.Security.Controllers
                         u.age = viewModel.age;
                         u.Gender = viewModel.Gender;
                         db.SaveChanges();
+                      
                     }
                     return RedirectToAction("Index");
                 }
@@ -178,8 +144,22 @@ namespace AyzMVC.Areas.Security.Controllers
         // GET: Security/Users/Delete/5
         public ActionResult Delete(Guid Id)
         {
-            var u = Users.FirstOrDefault(users => users.id == Id);
-            return View(u);
+            using (var db = new DatabaseContext())
+            {
+                var users = (from user in db.Users
+                             select new UserViewModel
+                             {
+                                 id = user.id,
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 age = user.age,
+                                 Gender = user.Gender
+                             }).ToList();
+
+                var u = users.FirstOrDefault(user => user.id == Id);
+
+                return View(u);
+            }
         }
 
         // POST: Security/Users/Delete/5
@@ -188,9 +168,13 @@ namespace AyzMVC.Areas.Security.Controllers
         {
             try
             {
-                var u = Users.FirstOrDefault( users => users.id == Id);
-                Users.Remove(u);
-
+                using (var db = new DatabaseContext())
+                {
+                    var u = db.Users.FirstOrDefault(us => us.id == Id);
+                    if (u != null)
+                        db.Users.Remove(u);
+                    
+                }
                 return RedirectToAction("Index");
             }
             catch
