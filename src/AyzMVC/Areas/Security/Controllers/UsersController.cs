@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AyzMVC.Areas.Security.Models;
 using AyzMVC.Dal;
+using System.Data.SqlClient;
 
 namespace AyzMVC.Areas.Security.Controllers
 {
@@ -67,19 +68,45 @@ namespace AyzMVC.Areas.Security.Controllers
 
                 using (var db = new DatabaseContext())
                 {
-                    db.Users.Add(new User
-                    {
-                        FirstName = viewModel.FirstName,
-                        LastName = viewModel.LastName,
-                        age = viewModel.age,
-                        Gender = viewModel.Gender,
-                        EmploymentDate = viewModel.EmploymentDate
-                    });
+                    /* db.Users.Add(new User
+                     {
+                         FirstName = viewModel.FirstName,
+                         LastName = viewModel.LastName,
+                         age = viewModel.age,
+                         Gender = viewModel.Gender,
+                         EmploymentDate = viewModel.EmploymentDate
+                     });
 
-                    db.SaveChanges();
+                     db.SaveChanges(); */
+
+                    var sql = @"exec uspCreateUser @guid,
+	                                @fname,
+	                                @lname,
+	                                @age,
+	                                @gender,
+	                                @empDate,
+	                                @school,
+	                                @yrAttended";
+
+                    var result = db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@guid", Guid.NewGuid()),
+                        new SqlParameter("@fname", viewModel.FirstName),
+                        new SqlParameter("@lname", viewModel.LastName),
+                        new SqlParameter("@age", viewModel.age),
+                        new SqlParameter("@gender", viewModel.Gender),
+                        new SqlParameter("@empDate", viewModel.EmploymentDate),
+                        new SqlParameter("@school", viewModel.School),
+                        new SqlParameter("@yrAttended", viewModel.YearAttended));
+
+                    if (result > 1)
+                    {
+                        TempData["CreateSuccess"] = "New user has been added!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                        ViewData["CreateFailed"] = "User creation failed!";
+                    return View();
                 }
-                TempData["CreateSuccess"] = "New user has been added!";
-                return RedirectToAction("Index");
             }
 
             catch

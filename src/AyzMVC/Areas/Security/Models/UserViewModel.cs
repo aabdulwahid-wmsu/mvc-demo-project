@@ -29,8 +29,11 @@ namespace AyzMVC.Areas.Security.Models
         [Display(Name = "Employment Date")]
         public DateTime? EmploymentDate { get; set; }
         public int UserID { get; set; }
+        [Required]
         public String School { get; set; }
-        [Display(Name = "Year Attended")]
+        [Required,Display(Name = "Year Attended")]
+        [MaxLength(4, ErrorMessage ="Invalid year")]
+        [MinLength(4, ErrorMessage = "Invalid year")]
         public String YearAttended { get; set; }
 
     }
