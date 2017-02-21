@@ -10,25 +10,38 @@ namespace AyzMVC.Areas.Security.Controllers
 {
     public class UsersController : Controller
     {
-        
+
         // GET: Security/Users
         public ActionResult Index()
         {
             using (var db = new DatabaseContext())
             {
-                var users = (from user in db.Users
+                var users = (from User in db.Users
                              select new UserViewModel
                              {
-                                 id = user.id,
-                                 FirstName = user.FirstName,
-                                 LastName = user.LastName,
-                                 age = user.age,
-                                 Gender = user.Gender
+                                 id = User.id,
+                                 FirstName = User.FirstName,
+                                 LastName = User.LastName,
+                                 age = User.age,
+                                 Gender = User.Gender,
+                                 EmploymentDate = User.EmploymentDate
                              }).ToList();
+
+               /* var edu = (from Education in db.Edu
+                           select new UserViewModel
+                           {
+                               UserID = Education.UserID,
+                               School = Education.School,
+                               YearAttended = Education.YearAttended
+
+                           }).ToList();
+                List<UserViewModel> joined = users.Union(edu).ToList();*/
 
                 return View(users);
             }
         }
+        
+        
 
         // GET: Security/Users/Details/5
         public ActionResult Details(int Id)
@@ -59,7 +72,8 @@ namespace AyzMVC.Areas.Security.Controllers
                         FirstName = viewModel.FirstName,
                         LastName = viewModel.LastName,
                         age = viewModel.age,
-                        Gender = viewModel.Gender
+                        Gender = viewModel.Gender,
+                        EmploymentDate = viewModel.EmploymentDate
                     });
 
                     db.SaveChanges();
@@ -96,6 +110,7 @@ namespace AyzMVC.Areas.Security.Controllers
                         u.LastName = viewModel.LastName;
                         u.age = viewModel.age;
                         u.Gender = viewModel.Gender;
+                        u.EmploymentDate = viewModel.EmploymentDate;
                         db.SaveChanges();
                     }
                     TempData["EditSuccess"] = "User info has been updated!";
@@ -152,7 +167,8 @@ namespace AyzMVC.Areas.Security.Controllers
                             FirstName = user.FirstName,
                             LastName = user.LastName,
                             age = user.age,
-                            Gender = user.Gender
+                            Gender = user.Gender,
+                            EmploymentDate = user.EmploymentDate
                         }).FirstOrDefault();
             }
         }

@@ -15,5 +15,16 @@ namespace AyzMVC.Dal
         public String LastName { get; set; }
         public int? age { get; set; }
         public String Gender { get; set; }
+        public DateTime? EmploymentDate { get; set; }
+
     }
+
+   /* public class Education
+    {   
+        [Key]
+        public int ID { get; set; }
+        public int UserID { get; set; }
+        public String School { get; set; }
+        public String YearAttended { get; set; }
+    } */
 }

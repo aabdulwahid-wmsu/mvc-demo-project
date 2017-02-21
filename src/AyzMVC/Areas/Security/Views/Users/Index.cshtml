@@ -57,6 +57,13 @@
                  @Html.DisplayNameFor(model => model.Gender)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.EmploymentDate)
+            </th>
+      <!--      <th>
+                @Html.DisplayNameFor(model => model.School)
+            </th>
+          -->
+            <th>
                  Actions
             </th>
          </tr>
@@ -78,6 +85,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Gender)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmploymentDate)
+                </td>
+          <!--      <td>
+                    @Html.DisplayFor(modelItem => item.School)
+                </td> 
+           -->
                 <td>
                     <a class="text-spacing" href="@Url.Action("Edit", new { id = item.id })">
                         <span class="glyphicon glyphicon-pencil"></span>

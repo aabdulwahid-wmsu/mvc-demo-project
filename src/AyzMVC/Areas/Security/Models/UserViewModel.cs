@@ -26,5 +26,12 @@ namespace AyzMVC.Areas.Security.Models
         public int? age { get; set; }
 
         public String Gender { get; set; }
+        [Display(Name = "Employment Date")]
+        public DateTime? EmploymentDate { get; set; }
+        public int UserID { get; set; }
+        public String School { get; set; }
+        [Display(Name = "Year Attended")]
+        public String YearAttended { get; set; }
+
     }
 }
