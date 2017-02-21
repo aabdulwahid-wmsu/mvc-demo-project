@@ -172,7 +172,10 @@ namespace AyzMVC.Areas.Security.Controllers
                 {
                     var u = db.Users.FirstOrDefault(us => us.id == Id);
                     if (u != null)
+                    {
                         db.Users.Remove(u);
+                        db.SaveChanges();
+                    }
                     
                 }
                 return RedirectToAction("Index");
