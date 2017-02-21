@@ -8,7 +8,7 @@ namespace AyzMVC.Areas.Security.Models
 {
     public class UserViewModel
     {
-        public Guid id { get; set; }
+        public int id { get; set; }
 
         [Display(Name = "First Name")]
         [Required]

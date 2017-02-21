@@ -31,7 +31,7 @@ namespace AyzMVC.Areas.Security.Controllers
         }
 
         // GET: Security/Users/Details/5
-        public ActionResult Details(Guid Id)
+        public ActionResult Details(int Id)
         {
             return View(GetUser(Id));
         }
@@ -56,7 +56,6 @@ namespace AyzMVC.Areas.Security.Controllers
                 {
                     db.Users.Add(new User
                     {
-                        id = Guid.NewGuid(),
                         FirstName = viewModel.FirstName,
                         LastName = viewModel.LastName,
                         age = viewModel.age,
@@ -76,14 +75,14 @@ namespace AyzMVC.Areas.Security.Controllers
         }
 
         // GET: Security/Users/Edit/5
-        public ActionResult Edit(Guid Id)
+        public ActionResult Edit(int Id)
         {
             return View(GetUser(Id));
         }
 
         // POST: Security/Users/Edit/5
         [HttpPost]
-        public ActionResult Edit(Guid Id, UserViewModel viewModel)
+        public ActionResult Edit(int Id, UserViewModel viewModel)
         {
             try
             {
@@ -111,14 +110,14 @@ namespace AyzMVC.Areas.Security.Controllers
         }
 
         // GET: Security/Users/Delete/5
-        public ActionResult Delete(Guid Id)
+        public ActionResult Delete(int Id)
         {
             return View(GetUser(Id));
         }
 
         // POST: Security/Users/Delete/5
         [HttpPost]
-        public ActionResult Delete(Guid Id, FormCollection collection)
+        public ActionResult Delete(int Id, FormCollection collection)
         {
             try
             {
@@ -141,7 +140,7 @@ namespace AyzMVC.Areas.Security.Controllers
             }
         }
 
-        private UserViewModel GetUser(Guid Id)
+        private UserViewModel GetUser(int Id)
         {
             using (var db = new DatabaseContext())
             {

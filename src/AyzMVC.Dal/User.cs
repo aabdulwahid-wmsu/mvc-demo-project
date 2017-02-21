@@ -10,7 +10,7 @@ namespace AyzMVC.Dal
     public class User
     {
         [Key]
-        public Guid id { get; set; }
+        public int id { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public int? age { get; set; }
