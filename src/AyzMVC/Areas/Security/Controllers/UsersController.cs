@@ -62,8 +62,21 @@ namespace AyzMVC.Areas.Security.Controllers
         // GET: Security/Users/Details/5
         public ActionResult Details(Guid Id)
         {
-            var u = Users.FirstOrDefault(users => users.id == Id);
-            return View(u);
+            using (var db = new DatabaseContext())
+            {
+                var users = (from user in db.Users
+                             select new UserViewModel
+                             {
+                                 id = user.id,
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 age = user.age,
+                                 Gender = user.Gender
+                             }).ToList();
+
+                var u = Users.FirstOrDefault(s => s.id == Id);
+                return View(u);
+            }
         }
 
         // GET: Security/Users/Create
@@ -106,9 +119,22 @@ namespace AyzMVC.Areas.Security.Controllers
         // GET: Security/Users/Edit/5
         public ActionResult Edit(Guid Id)
         {
-            var u = Users.FirstOrDefault(users => users.id == Id);
-            
-            return View(u);
+            using (var db = new DatabaseContext())
+            {
+                var users = (from user in db.Users
+                             select new UserViewModel
+                {
+                    id = user.id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    age = user.age,
+                    Gender = user.Gender
+                }).ToList();
+
+                var u = users.FirstOrDefault(user => user.id == Id);
+
+                return View(u);
+            }
         }
 
         // POST: Security/Users/Edit/5
@@ -117,16 +143,32 @@ namespace AyzMVC.Areas.Security.Controllers
         {
             try
             {
-                var u = Users.FirstOrDefault(users => users.id == Id);
-				
-				u.FirstName = viewModel.FirstName;
-				u.LastName = viewModel.LastName;
-                u.age = viewModel.age;
-                u.Gender = viewModel.Gender;
-            
+                using (var db = new DatabaseContext())
+                {
+                   /* var users = db.Users.Find(Id);
+                    if(users != null)
+                    {
+                        users.FirstName = viewModel.FirstName;
+                        users.LastName = viewModel.LastName;
+                        users.age = viewModel.age;
+                        users.Gender = viewModel.Gender;
+                        db.SaveChanges(); 
+                    }
+                    */
 
-                return RedirectToAction("Index");
+                    var u = db.Users.FirstOrDefault( us => us.id == Id);
+                    if (u != null)
+                    {
+                        u.FirstName = viewModel.FirstName;
+                        u.LastName = viewModel.LastName;
+                        u.age = viewModel.age;
+                        u.Gender = viewModel.Gender;
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
+                }
             }
+
             catch
             {
                 return View();
