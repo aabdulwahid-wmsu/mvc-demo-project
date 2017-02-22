@@ -26,8 +26,12 @@ namespace AyzMVC.Areas.Security.Controllers
                                  age = User.age,
                                  Gender = User.Gender,
                                  EmploymentDate = User.EmploymentDate,
-                                 Schools = User.Edu.Select(s => s.School).ToList(),
-                                 YrAttended = User.Edu.Select(x => x.YearAttended).ToList()
+                                 Educations = User.Edu.Select(s =>
+                             new EducationViewModel
+                             {
+                                 School = s.School,
+                                 YearAttended = s.YearAttended
+                             }).ToList()
                              }).ToList();
 
 
@@ -70,40 +74,18 @@ namespace AyzMVC.Areas.Security.Controllers
                          EmploymentDate = viewModel.EmploymentDate
                      };
 
-                     newUser.Edu.Add(new Education
-                         {
-                             School = viewModel.School,
-                             YearAttended = viewModel.YearAttended
-
-                         });
-                     db.Users.Add(newUser);
+                    foreach (var edu in viewModel.Educations)
+                    {
+                        newUser.Edu.Add(new Education
+                        {
+                            School = edu.School,
+                            YearAttended = edu.YearAttended
+                        });
+                    }
+                    db.Users.Add(newUser);
                      db.SaveChanges(); 
 
-                 /*   var sql = @"exec uspCreateUser @guid,
-	                                @fname,
-	                                @lname,
-	                                @age,
-	                                @gender,
-	                                @empDate,
-	                                @school,
-	                                @yrAttended";
 
-                    var result = db.Database.ExecuteSqlCommand(sql,
-                        new SqlParameter("@guid", Guid.NewGuid()),
-                        new SqlParameter("@fname", viewModel.FirstName),
-                        new SqlParameter("@lname", viewModel.LastName),
-                        new SqlParameter("@age", viewModel.age),
-                        new SqlParameter("@gender", viewModel.Gender),
-                        new SqlParameter("@empDate", viewModel.EmploymentDate),
-                        new SqlParameter("@school", viewModel.School),
-                        new SqlParameter("@yrAttended", viewModel.YearAttended));
-
-                    if (result > 1)
-                    {
-                        TempData["CreateSuccess"] = "New user has been added!";
-                        return RedirectToAction("Index");
-                    }
-                    else*/
                      TempData["CreateSuccess"] = "New user has been added!";
                      return RedirectToAction("Index");
                 }

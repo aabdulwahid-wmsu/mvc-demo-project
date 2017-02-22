@@ -44,7 +44,8 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th></th>
+            <th>SN
+            </th>
             <th>
                  @Html.DisplayNameFor(model => model.FirstName)
             </th>
@@ -60,12 +61,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.EmploymentDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Schools)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.YearAttended)
-            </th>
 
             <th>
                  Actions
@@ -74,10 +69,21 @@
     </thead>
     
     <tbody>
+        @{var x = 1;}
         @foreach (var item in Model)
         {
             <tr>
-                <td></td>
+                <td>
+                    @if (item.Educations != null && item.Educations.Count() > 0)
+                {
+                        <a class="text-primary" role="button" data-toggle="collapse"
+                           href="#chk_@item.id"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </a>
+                    }
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
@@ -93,12 +99,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EmploymentDate)
                 </td>
-                <td>
-                    @string.Join(",", item.Schools)
-                </td> 
-                <td>
-                    @string.Join(",", item.YrAttended)
-                </td> 
+
          
                 <td>
                     <a class="text-spacing" href="@Url.Action("Edit", new { id = item.id })">
@@ -114,6 +115,29 @@
                     </a>
                 </td>
             </tr>
+
+
+            if (item.Educations != null && item.Educations.Count() > 0)
+            {
+                <tr class="collapse" id="chk_@item.id">
+                    <td colspan="5">
+                        <h5 style="margin-left:100px">Educations</h5>
+                        <table class="table table-condensed">
+                            @foreach (var education in item.Educations)
+                            {
+                                <tr class="row">
+                                    <td class="col-md-3">
+                                        @Html.DisplayFor(modelItem => education.School)
+                                    </td>
+                                    <td class="col-md-3">
+                                        @Html.DisplayFor(modelItem => education.YearAttended)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

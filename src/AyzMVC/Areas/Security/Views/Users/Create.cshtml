@@ -22,122 +22,122 @@
                     Cancel
                 </a>
                 
-                <button type="submit" value="Save" class="btn btn-success" />
+                <button type="submit" value="Save" onclick="return confirm('Add New User?')" class="btn btn-success" />
                 <span class="glyphicon glyphicon-ok"></span>
                 Save
             </div>
         </header>
+        <div class="col-md-6">
+            <div class="panel">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.age, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.age, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.age, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8 radio-margin">
+                        @Html.RadioButtonFor(model => model.Gender, "Male", new { Gender = "Male" })
+                        Male
+                        @Html.RadioButtonFor(model => model.Gender, "Female", new { Gender = "Female" })
+                        Female
+                        @Html.RadioButtonFor(model => model.Gender, "Other", new { Gender = "Other" })
+                        Other
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10 radio-margin">
-                @Html.RadioButtonFor(model => model.Gender, "Male", new { Gender = "Male" })
-                Male
-                @Html.RadioButtonFor(model => model.Gender, "Female", new { Gender = "Female" })
-                Female
-                @Html.RadioButtonFor(model => model.Gender, "Other", new { Gender = "Other" })
-                Other
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmploymentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" name="EmploymentDate" value="EmploymentDate" />
+                    </div>
+                </div>
+            </div></div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmploymentDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EmploymentDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EmploymentDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="col-md-12">
+                    <h2>Education</h2>
+
+                </div>
 
 
-        <div class="col-md-12 top-border">
-            <h2>Education</h2>
+                <div class="form-group">
+                    <label class="control-label col-md-2">School</label>
+                    <div class="col-md-8">
+                        <input type="text" id="school" class="form-control" />
+                    </div>
+                </div>
 
-        </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Year Attended</label>
+                    <div class="col-md-8 btn-toolbar input-group">
+                        <input type="text" class="form-control" id="yrAttended" />
+                        <a class="glyphicon glyphicon-plus input-group-addon text-left" onclick="addToGrid()" aria-describedby="btnGroupAddon">Add</a>
+                    </div>
+                </div>
+               <table class='table col-md-4'>
+    <thead>
+        <tr>
+            <th>School</th>
+            <th>Year Attended</th>
+        </tr>
+    </thead>
+                   <tbody>
+                       <tr>
+                           <td>
+                               <div id="educGrid"></div>
+                           </td>
+                           <td>
+                               <div id="yrGrid"></div>
+                           </td>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.School, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.School, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.School, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.YearAttended, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.YearAttended, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.YearAttended, "", new { @class = "text-danger" })
+                       </tr>
+                   </tbody>
+        </table>
             </div>
         </div>
     </div>
 }
-<table class="table table-hover">
-        <thead>
-            <tr>
-                <th></th>
-                <th>
-                    @Html.DisplayNameFor(model => model.School)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.YearAttended)
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
-        </thead>
+    <script>
+    var index = 0;
+    function addToGrid() {
 
-        <tbody>
-  
-                <tr>
-                    <td></td>
-                    <td>
-                        @Html.DisplayFor( x => x.School)
-                    </td>
-                    <td>
-                        @Html.DisplayFor( x => x.YearAttended)
-                    </td>
+        var school = $("#school").val();
+        var yrAttended = $("#yrAttended").val();
+        var ht = "<div><span>" + yrAttended + "</span></div>";
+        var rec = "<div>";
+        rec += "<input type='hidden' name='Educations[" + index + "].School' value='" + school + "'/>";
+        rec += "<input type='hidden' name='Educations[" + index + "].YearAttended' value='" + yrAttended + "'/>";
+        rec += "<span>" + school + "</span>";
+        rec += "</div>";
+        console.log(rec);
+        $("#educGrid").append(rec);
+        $("#yrGrid").append(ht);
+        index++;
+    }
 
-                    <td>
-                        <a class="text-spacing" href="@Url.Action("Create")">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                            Edit
-                        </a>
-                        <a class="text-spacing red" href="@Url.Action("Create")">
-                            <span class="glyphicon glyphicon-trash"></span>
-                            Delete
-                        </a>
-                    </td>
-                </tr>
-            
-        </tbody>
-    </table>
-
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

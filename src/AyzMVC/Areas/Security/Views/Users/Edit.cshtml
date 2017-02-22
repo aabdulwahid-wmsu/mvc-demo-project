@@ -22,7 +22,7 @@
                 <span class="glyphicon glyphicon-arrow-left"></span>
                 Cancel
             </a>
-            <button type="submit" value="Save" class="btn btn-success" />
+            <button type="submit" value="Save" onclick="return confirm('Are you sure to update?')" class="btn btn-success" />
             <span class="glyphicon glyphicon-ok"></span>
             Update
         </div>
@@ -68,9 +68,8 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.EmploymentDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.EmploymentDate, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.EmploymentDate, "", new { @class = "text-danger" })
+        <div class="col-md-8">
+            <input type="date" class="form-control" name="EmploymentDate" value="EmploymentDate" />
         </div>
     </div>
 </div>
