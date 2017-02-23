@@ -72,9 +72,13 @@
                 @Html.ValidationMessageFor(model => model.EmploymentDate, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
         <div class="col-md-12 top-border">
             <h2>Education</h2>
+
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.School, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -92,6 +96,48 @@
         </div>
     </div>
 }
+<table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.School)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.YearAttended)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+  
+                <tr>
+                    <td></td>
+                    <td>
+                        @Html.DisplayFor( x => x.School)
+                    </td>
+                    <td>
+                        @Html.DisplayFor( x => x.YearAttended)
+                    </td>
+
+                    <td>
+                        <a class="text-spacing" href="@Url.Action("Create")">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Edit
+                        </a>
+                        <a class="text-spacing red" href="@Url.Action("Create")">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            
+        </tbody>
+    </table>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

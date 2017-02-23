@@ -25,18 +25,11 @@ namespace AyzMVC.Areas.Security.Controllers
                                  LastName = User.LastName,
                                  age = User.age,
                                  Gender = User.Gender,
-                                 EmploymentDate = User.EmploymentDate
+                                 EmploymentDate = User.EmploymentDate,
+                                 Schools = User.Edu.Select(s => s.School).ToList(),
+                                 YrAttended = User.Edu.Select(x => x.YearAttended).ToList()
                              }).ToList();
 
-               /* var edu = (from Education in db.Edu
-                           select new UserViewModel
-                           {
-                               UserID = Education.UserID,
-                               School = Education.School,
-                               YearAttended = Education.YearAttended
-
-                           }).ToList();
-                List<UserViewModel> joined = users.Union(edu).ToList();*/
 
                 return View(users);
             }
@@ -68,18 +61,25 @@ namespace AyzMVC.Areas.Security.Controllers
 
                 using (var db = new DatabaseContext())
                 {
-                    /* db.Users.Add(new User
+                     var newUser = new User
                      {
                          FirstName = viewModel.FirstName,
                          LastName = viewModel.LastName,
                          age = viewModel.age,
                          Gender = viewModel.Gender,
                          EmploymentDate = viewModel.EmploymentDate
-                     });
+                     };
 
-                     db.SaveChanges(); */
+                     newUser.Edu.Add(new Education
+                         {
+                             School = viewModel.School,
+                             YearAttended = viewModel.YearAttended
 
-                    var sql = @"exec uspCreateUser @guid,
+                         });
+                     db.Users.Add(newUser);
+                     db.SaveChanges(); 
+
+                 /*   var sql = @"exec uspCreateUser @guid,
 	                                @fname,
 	                                @lname,
 	                                @age,
@@ -103,9 +103,9 @@ namespace AyzMVC.Areas.Security.Controllers
                         TempData["CreateSuccess"] = "New user has been added!";
                         return RedirectToAction("Index");
                     }
-                    else
-                        ViewData["CreateFailed"] = "User creation failed!";
-                    return View();
+                    else*/
+                     TempData["CreateSuccess"] = "New user has been added!";
+                     return RedirectToAction("Index");
                 }
             }
 

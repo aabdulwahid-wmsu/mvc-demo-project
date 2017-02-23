@@ -15,7 +15,7 @@ namespace AyzMVC.Dal
             
         }
         public DbSet<User> Users { get; set; } 
-       // public DbSet<Education> Edu { get; set; }
+        public DbSet<Education> Edu { get; set; }
         
     }
 }

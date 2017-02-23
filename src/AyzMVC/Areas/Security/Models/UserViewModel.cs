@@ -36,5 +36,8 @@ namespace AyzMVC.Areas.Security.Models
         [MinLength(4, ErrorMessage = "Invalid year")]
         public String YearAttended { get; set; }
 
+        public IList<string> Schools { get; set; }
+        public IList<string> YrAttended { get; set; }
+
     }
 }

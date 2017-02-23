@@ -9,6 +9,10 @@ namespace AyzMVC.Dal
 {
     public class User
     {
+        public User()
+        {
+            Edu = new List<Education>();
+        }
         [Key]
         public int id { get; set; }
         public String FirstName { get; set; }
@@ -17,14 +21,6 @@ namespace AyzMVC.Dal
         public String Gender { get; set; }
         public DateTime? EmploymentDate { get; set; }
 
+        public ICollection<Education> Edu { get; set; }
     }
-
-   /* public class Education
-    {   
-        [Key]
-        public int ID { get; set; }
-        public int UserID { get; set; }
-        public String School { get; set; }
-        public String YearAttended { get; set; }
-    } */
 }
